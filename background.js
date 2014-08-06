@@ -1,20 +1,31 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 
 chrome.commands.onCommand.addListener(function(command) {
-  console.log('onCommand event received for message: ', command);
 
-  chrome.tabs.query({active:true, currentWindow:true}, function(tab) {
-    console.log(tab[0])
-    var tab = tab[0]
-    var tab_location = tab.index
-    var tab_new_location = 0
-    if (command == 'move_tab_back')
-      tab_new_location = tab_location - 1
-    else if (command == 'move_tab_forward')
-      tab_new_location = tab_location +1
-    chrome.tabs.move(tab.id, {index: tab_new_location})
+  chrome.tabs.query({currentWindow:true}, function(allTabs) {
+    var lastIndex = allTabs[allTabs.length - 1].index // gets the index of the last tab
+
+    chrome.tabs.query({active:true, currentWindow:true}, function(tab) {
+
+      var tab = tab[0] // only one active tab per current window
+      var tab_location = tab.index
+      var tab_new_location = 0
+      if (command == 'move_tab_back')
+        tab_new_location = tab_location - 1
+      else if (command == 'move_tab_forward') {
+        if (tab_location == lastIndex)
+          tab_new_location = 0
+        else
+          tab_new_location = tab_location + 1
+      }
+
+      console.log('Last index:', lastIndex)
+      console.log('Tab', tab.id, 'was moved from position', tab_location, 'to', tab_new_location);
+
+      chrome.tabs.move(tab.id, {index: tab_new_location})
+    });
+
   });
+
+
 
 });

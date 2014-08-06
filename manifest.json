@@ -1,7 +1,7 @@
 {
   "name": "Tab Rearranger",
   "description": "This extension allows you to rearrange tabs with a keyboard shortcut",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "manifest_version": 2,
   "browser_action": {
       "default_title": "Tab Rearranger",
@@ -15,17 +15,17 @@
   "commands": {
     "move_tab_back": {
       "suggested_key": {
-        "default": "Ctrl+Shift+O",
-        "mac": "Command+Shift+O"
+        "default": "Ctrl+Shift+Left",
+        "mac": "Command+Shift+Left"
       },
-      "description": "Send a 'move_tab_back' event to the extension"
+      "description": "Move Tab Back"
     },
     "move_tab_forward": {
       "suggested_key": {
-        "default": "Ctrl+Shift+P",
-        "mac": "Command+Shift+P"
+        "default": "Ctrl+Shift+Right",
+        "mac": "Command+Shift+Right"
       },
-      "description": "Send a 'move_tab_forward' event to the extension"
+      "description": "Move Tab Forward"
     }
   }
 }
